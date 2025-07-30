@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'; 
 import auth from '../lib/auth-helper';
 
 export default function Home() {
@@ -12,21 +13,21 @@ export default function Home() {
         <p className="text-lg mb-6 text-slate-200 leading-relaxed">
           I craft responsive, scalable, and visually engaging web applications with a focus on performance and user experience.
         </p>
-        <a
-          href="/about"
+        <Link
+          to="/about"
           className="inline-block bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-2 px-4 rounded-lg transition"
         >
           Learn More About Me
-        </a>
+        </Link>
 
         {auth.isAdmin() && (
           <div className="mt-6">
-            <a
-              href="/admin"
+            <Link
+              to="/admin"
               className="inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg transition"
             >
               Go to Admin Dashboard
-            </a>
+            </Link>
           </div>
         )}
       </div>
@@ -34,7 +35,7 @@ export default function Home() {
   );
 }
 
-function EnhancedFloatingCodeParticles({ count = 30 }) { //tailwindcss
+function EnhancedFloatingCodeParticles({ count = 30 }) {
   const codeSnippets = [
     '<div />',
     'console.log("Hello")',
@@ -85,5 +86,3 @@ function EnhancedFloatingCodeParticles({ count = 30 }) { //tailwindcss
     </>
   );
 }
-
-
