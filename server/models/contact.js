@@ -6,7 +6,9 @@ const contactSchema = new mongoose.Schema({
   phone: String,
   github: String,
   linkedin: String,
-  message: String 
+  message: String,
+  avatar: String 
 });
+
 
 export default mongoose.model('Contact', contactSchema);

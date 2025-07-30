@@ -11,14 +11,44 @@ export const getById = async (req, res) => {
 };
 
 export const create = async (req, res) => {
-  const newContact = new Contact(req.body);
-  await newContact.save();
-  res.status(201).json(newContact);
+  try {
+    const avatarPath = req.file ? `/uploads/${req.file.filename}` : null;
+
+    const newContact = new Contact({
+      ...req.body,
+      avatar: avatarPath,
+    });
+
+    await newContact.save();
+    res.status(201).json(newContact);
+  } catch (err) {
+    console.error("Error creating contact:", err);
+    res.status(500).json({ error: 'Server error creating contact' });
+  }
 };
 
 export const update = async (req, res) => {
-  const updatedContact = await Contact.findByIdAndUpdate(req.params.id, req.body, { new: true });
-  res.json(updatedContact);
+  try {
+    const avatarPath = req.file ? `/uploads/${req.file.filename}` : undefined;
+
+    const updateData = {
+      ...req.body,
+    };
+
+    // Only overwrite avatar if a new one was uploaded
+    if (avatarPath) {
+      updateData.avatar = avatarPath;
+    }
+
+    const updatedContact = await Contact.findByIdAndUpdate(req.params.id, updateData, {
+      new: true,
+    });
+
+    res.json(updatedContact);
+  } catch (err) {
+    console.error("Error updating contact:", err);
+    res.status(500).json({ error: 'Server error updating contact' });
+  }
 };
 
 export const remove = async (req, res) => {

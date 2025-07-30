@@ -4,12 +4,16 @@ import cookieParser from "cookie-parser";
 import compress from "compression";
 import cors from "cors";
 import helmet from "helmet";
+import path from "path";
+import { fileURLToPath } from "url";
 
+// Import routes
 import userRoutes from "./routes/user.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import contactRoutes from "./routes/contactRoutes.js";
 import projectRoutes from "./routes/projectRoutes.js";
 import qualificationRoutes from "./routes/qualificationRoutes.js";
+import uploadRoutes from "./routes/uploadRoutes.js"; 
 
 const app = express();
 
@@ -31,7 +35,15 @@ app.use(cookieParser());
 app.use(compress());
 app.use(helmet());
 
-// Routes
+// avatarr
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+
+// upload routes
+app.use("/api/upload", uploadRoutes);
+
+// Main API routes
 app.use("/api", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/contacts", contactRoutes);

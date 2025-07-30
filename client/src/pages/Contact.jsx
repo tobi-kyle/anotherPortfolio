@@ -8,7 +8,7 @@ export default function Contact() {
   useEffect(() => {
     listContacts().then(data => {
       if (Array.isArray(data) && data.length > 0) {
-        setContact(data[data.length - 1]); // get latesst
+        setContact(data[data.length - 1]); // Get latesst
       }
     });
   }, []);
@@ -17,12 +17,16 @@ export default function Contact() {
     return <div className="contact-page">Loading...</div>;
   }
 
+  const avatarUrl = contact.avatar
+    ? import.meta.env.VITE_API_BASE_URL + contact.avatar
+    : "/headshot.png";
+
   return (
     <div className="contact-page">
       <div className="contact-card">
         <div className="contact-avatar">
           <img
-            src="/src/assets/headshot.png"
+            src={avatarUrl}
             alt={contact.name || "Contact Avatar"}
           />
         </div>
