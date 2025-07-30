@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config(); // ✅ MUST be first before anything uses process.env
+
 import mongoose from 'mongoose';
 import app from './server/express.js'; 
 import config from './config/config.js';
@@ -6,7 +9,7 @@ console.log(">>> USING MONGO URI:", config.mongoUri);
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect(config.mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(config.mongoUri)
   .then(() => {
     console.log("✅ Connected to MongoDB:", mongoose.connection.db.databaseName);
   })

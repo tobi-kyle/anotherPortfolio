@@ -10,7 +10,7 @@ export default function AdminDashboard() {
   const [tab, setTab] = useState(0);
   const navigate = useNavigate();
 
-  // If not admin, redirect 
+  // If not admin, it will redirect 
   if (!auth.isAdmin()) {
     navigate("/");
     return null;

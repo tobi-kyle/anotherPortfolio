@@ -1,3 +1,4 @@
+//app.jsx
 import Navbar from './components/Navbar';
 import MainRouter from './MainRouter';
 

@@ -1,4 +1,4 @@
-@tailwind base;
+@tailwind base;  
 @tailwind components;
 @tailwind utilities;
 
@@ -28,7 +28,7 @@ a:hover {
   color: #93c5fd;
 }
 
-/* Container Layout */
+/* Container layoutts */
 .container {
   max-width: 1100px;
   margin: 0 auto;
