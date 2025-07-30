@@ -11,7 +11,7 @@ export default function Home() {
           Welcome to My Portfolio
         </h1>
         <p className="text-lg mb-6 text-slate-200 leading-relaxed">
-          I craft responsive, scalable, and visually engaging web applications with a focus on performance and user experience.
+         I build responsive and scalable web applications with a focus on clean design, good performance, and user-friendly experiences. I enjoy improving my skills by working on real projects and exploring modern tools and best practices in web development.
         </p>
         <Link
           to="/about"
