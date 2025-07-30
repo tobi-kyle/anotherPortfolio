@@ -12,10 +12,11 @@ export default function SignIn() {
     e.preventDefault();
     setError("");
     try {
-      const response = await fetch("/api/auth/signin", {
+      const response = await fetch(`${import.meta.env.REACT_APP_API_BASE_URL}/api/auth/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
+        credentials: 'include' // Include cookies for the token
       });
       const data = await response.json();
       if (data.error) setError(data.error);
@@ -30,7 +31,7 @@ export default function SignIn() {
     }
   };
 
-return (
+  return (
     <div className="auth-form-container">
       <h2>Sign In</h2>
       <form className="auth-form" onSubmit={handleSubmit}>
