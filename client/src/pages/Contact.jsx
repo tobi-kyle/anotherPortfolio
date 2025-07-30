@@ -18,7 +18,7 @@ export default function Contact() {
   }
 
   const avatarUrl = contact.avatar
-    ? import.meta.env.VITE_API_BASE_URL + contact.avatar
+    ? `${import.meta.env.VITE_API_BASE_URL}/${contact.avatar}`
     : "/headshot.png";
 
   return (
