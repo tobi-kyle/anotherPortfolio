@@ -18,10 +18,6 @@ mongoose.connect(config.mongoUri, { useNewUrlParser: true, useUnifiedTopology: t
 mongoose.connection.on('error', err => console.error('MongoDB error:', err));
 mongoose.connection.on('disconnected', () => console.log('MongoDB disconnected'));
 
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to Portfolio API." });
-});
-
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, (err) => {
   if (err) {
