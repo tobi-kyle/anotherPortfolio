@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.REACT_APP_API_BASE_URL + "/api/contacts";
+const API_URL = import.meta.env.VITE_API_BASE_URL + "/api/contacts";
 
 export const create = async (contact, token) => {
   try {

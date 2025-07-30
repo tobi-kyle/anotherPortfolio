@@ -13,7 +13,7 @@ export default function Register() {
     e.preventDefault();
     setError(""); setSuccess("");
     try {
-      const response = await fetch(`${import.meta.env.REACT_APP_API_BASE_URL}/api/users`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),

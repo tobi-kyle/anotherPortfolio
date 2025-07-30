@@ -12,7 +12,7 @@ export default function SignIn() {
     e.preventDefault();
     setError("");
     try {
-      const response = await fetch(`${import.meta.env.REACT_APP_API_BASE_URL}/api/auth/signin`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

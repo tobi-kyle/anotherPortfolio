@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.REACT_APP_API_BASE_URL + "/api/qualifications";
+const API_URL = import.meta.env.VITE_API_BASE_URL + "/api/qualifications";
 
 export const create = async (qualification, token) => {
   try {
