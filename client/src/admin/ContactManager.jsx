@@ -10,6 +10,10 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
+  ListItemAvatar,
+  Avatar,
+  Box,
+  Typography,
 } from "@mui/material";
 
 export default function ContactManager() {
@@ -27,9 +31,26 @@ export default function ContactManager() {
   const [editingId, setEditingId] = useState(null);
   const token = auth.isAuthenticated().token;
 
+  // Helper function to generate consistent avatar URL
+  const getAvatarUrl = (contact) => {
+    if (contact.avatar) return contact.avatar;
+    const name = contact.name || 'Unknown';
+    const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
+    return `https://ui-avatars.com/api/?name=${encodeURIComponent(initials)}&background=random&color=fff&size=128`;
+  };
+
   useEffect(() => {
     fetchContacts();
   }, []);
+
+  // Cleanup object URLs on unmount
+  useEffect(() => {
+    return () => {
+      if (avatarFile) {
+        URL.revokeObjectURL(URL.createObjectURL(avatarFile));
+      }
+    };
+  }, [avatarFile]);
 
   const fetchContacts = async () => {
     const data = await list();
@@ -42,6 +63,10 @@ export default function ContactManager() {
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      // Clean up previous object URL to prevent memory leaks
+      if (avatarFile) {
+        URL.revokeObjectURL(URL.createObjectURL(avatarFile));
+      }
       setAvatarFile(file);
     }
   };
@@ -130,7 +155,27 @@ export default function ContactManager() {
           minRows={2}
           placeholder="Any additional info, links, etc."
         />
-        <input type="file" accept="image/*" onChange={handleAvatarChange} />
+        
+        {/* Avatar Preview Section */}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Avatar
+            src={avatarFile ? URL.createObjectURL(avatarFile) : form.avatar}
+            sx={{ width: 60, height: 60 }}
+          >
+            {form.name ? form.name.charAt(0).toUpperCase() : '?'}
+          </Avatar>
+          <Box sx={{ flex: 1 }}>
+            <Typography variant="body2" color="text.secondary" gutterBottom>
+              Avatar Image
+            </Typography>
+            <input type="file" accept="image/*" onChange={handleAvatarChange} />
+            {(form.avatar || avatarFile) && (
+              <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+                {avatarFile ? 'New image selected' : 'Current avatar will be preserved'}
+              </Typography>
+            )}
+          </Box>
+        </Box>
         <Button type="submit" variant="contained">
           {editingId ? "Update" : "Add"}
         </Button>
@@ -158,6 +203,14 @@ export default function ContactManager() {
         {contacts &&
           contacts.map((contact) => (
             <ListItem key={contact._id} divider>
+              <ListItemAvatar>
+                <Avatar 
+                  src={getAvatarUrl(contact)}
+                  sx={{ width: 48, height: 48 }}
+                >
+                  {contact.name ? contact.name.charAt(0).toUpperCase() : '?'}
+                </Avatar>
+              </ListItemAvatar>
               <ListItemText
                 primary={contact.name}
                 secondary={[
